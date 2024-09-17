@@ -1,0 +1,25 @@
+@keyframes slideInBottom {
+    from {
+      transform: translateY(100%); /* Start from the bottom */
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0); /* End at the original position */
+      opacity: 1;
+    }
+  }
+  
+  .word {
+    display: inline-block;
+    opacity: 0;
+    animation: slideInBottom 0.3s ease-out backwards; /* Animation with easing */
+  }
+  
+  .word.visible {
+    opacity: 1;
+  }
+  
+  .word:not(.visible) {
+    opacity: 0;
+  }
+  

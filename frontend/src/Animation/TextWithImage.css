@@ -1,0 +1,20 @@
+/* Keyframes for typing animation */
+@keyframes typing {
+    0% {
+      width: 0%;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+  
+  /* Keyframes for blink animation */
+  @keyframes blink {
+    0%, 100% {
+      border-right: 2px solid transparent;
+    }
+    50% {
+      border-right: 2px solid #222;
+    }
+  }
+  
