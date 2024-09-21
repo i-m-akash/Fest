@@ -9,11 +9,12 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
-const handleLoginCheck = async () => {
+const handleLoginCheck = async (e) => {
+    e.preventDefault();
     try {
-    const response = await axios.get(`${BASE_URL}/login/success`);
+    const response = await axios.get(`${BASE_URL}/login/success`, { withCredentials: true });
     if (response.data.success) {
-      setIsLoggedIn(true);  // Assuming `setIsLoggedIn` is part of your state
+      setIsLoggedIn(true);  
     } else {
       setIsLoggedIn(false);
     }
