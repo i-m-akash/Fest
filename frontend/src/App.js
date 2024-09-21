@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import { AuthProvider } from './components/AuthContext';
+// import { AuthProvider } from './components/AuthContext';
 import ScrollToTop from './components/ScrollToTop';
 import Login from './LoginandSignup/login';
 import Signup from './LoginandSignup/signup';
@@ -28,7 +28,7 @@ import Accomodation from './components/Accomodation';
 
 function App() {
   return (
-    <AuthProvider>
+    // <AuthProvider>
 
       <Router>
       <ScrollToTop/>
@@ -57,7 +57,7 @@ function App() {
           <Route path="/subevent-details" element={<SubEventDetails />}></Route>
         </Routes>
       </Router>
-    </AuthProvider>
+    // </AuthProvider>
 
   );
 }
