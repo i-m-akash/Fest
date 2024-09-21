@@ -10,17 +10,17 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    axios.get(`${BASE_URL}/login/success`, { withCredentials: true })
-      
-      .then(response => {
-        console.log(response);
-        if (response.data.success) {
-          setIsLoggedIn(true);
-        }
-      })
-      .catch(() => {
-        setIsLoggedIn(false);
-      });
+    try {
+    const response = await axios.get(`${BASE_URL}/login/success`, { withCredentials: true });
+    if (response.data.success) {
+      setIsLoggedIn(true);  // Assuming `setIsLoggedIn` is part of your state
+    } else {
+      setIsLoggedIn(false);
+    }
+  } catch (error) {
+    console.error('Error fetching login status:', error);
+    setIsLoggedIn(false);
+  }
   }, []);
 
   const handleLogout = () => {
