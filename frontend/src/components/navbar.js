@@ -11,6 +11,7 @@ const Navbar = () => {
 
   useEffect(() => {
     axios.get(`${BASE_URL}/login/success`, { withCredentials: true })
+      console.log(response)
       .then(response => {
         if (response.data.success) {
           setIsLoggedIn(true);
