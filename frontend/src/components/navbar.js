@@ -9,8 +9,8 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
-const handleLoginCheck = async (e) => {
-    e.preventDefault();
+const handleLoginCheck = async () => {
+  
     try {
     const response = await axios.get(`${BASE_URL}/login/success`, { withCredentials: true });
     if (response.data.success) {
