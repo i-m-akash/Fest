@@ -9,7 +9,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
+const handleLoginCheck = async () => {
     try {
     const response = await axios.get(`${BASE_URL}/login/success`, { withCredentials: true });
     if (response.data.success) {
@@ -21,6 +21,9 @@ const Navbar = () => {
     console.error('Error fetching login status:', error);
     setIsLoggedIn(false);
   }
+}
+  useEffect(() => {
+  handleLoginCheck();
   }, []);
 
   const handleLogout = () => {
