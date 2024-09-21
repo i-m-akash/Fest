@@ -12,7 +12,7 @@ const Navbar = () => {
 const handleLoginCheck = async () => {
   
     try {
-    const response = await axios.get(`${BASE_URL}/login/success`, { withCredentials: true });
+    const response = await axios.get(`${BASE_URL}/user`, { withCredentials: true });
     if (response.data.success) {
       setIsLoggedIn(true);  
     } else {
