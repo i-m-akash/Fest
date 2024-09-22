@@ -1,78 +1,69 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Link } from 'react-router-dom'
 import img from "../Images/logo.webp";
-import { BASE_URL } from '../BaseUrl';
+
 const Navbar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState();
+  const [isLoggedIn, setIsLoggedIn] = useState(null); // Initialize as null
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
-const handleLoginCheck = async () => {
-  
-    try {
-    const response = await axios.get(`${BASE_URL}/user`, { withCredentials: true });
-    if (response.data.success) {
-      setIsLoggedIn(true);  
-    } else {
-      setIsLoggedIn(false);
-    }
-  } catch (error) {
-    console.error('Error fetching login status:', error);
-    setIsLoggedIn(false);
-  }
-}
   useEffect(() => {
-  handleLoginCheck();
+    axios.get('https://pyrexia-backend.onrender.com/login/success', { withCredentials: true })
+      .then(response => {
+        if (response?.data?.success) {  // Optional chaining
+          setIsLoggedIn(true);
+        } else {
+          setIsLoggedIn(false);
+        }
+      })
+      .catch(() => {
+        setIsLoggedIn(false);  // Ensure fallback to logged-out state on error
+      });
   }, []);
 
   const handleLogout = () => {
-    axios.get(`${BASE_URL}/logout`, { withCredentials: true })
+    axios.get('https://pyrexia-backend.onrender.com/logout', { withCredentials: true })
       .then(response => {
-        if (response.data.success) {
+        if (response?.data?.success) {  // Optional chaining
           setIsLoggedIn(false);
-          navigate("/");
+          navigate("/");  // Redirect to home after logout
         }
+      })
+      .catch(error => {
+        console.error("Error during logout:", error);
       });
   };
-  const handleEventClick = () => {
-    navigate('/events', { state: { activeEvent: 'All Events' } });
-  };
-  const buttonClasses = 'text-gray-100  flex justify-center font-bold text-sm px-2 py-1 border-2 border-gray-100 hover:bg-gray-100 hover:text-gray-800 rounded-lg transition duration-300';
+
+  const buttonClasses = 'text-gray-100 font-bold text-sm px-2 py-1 border-2 border-gray-100 hover:bg-gray-100 hover:text-gray-800 rounded-lg transition duration-300';
 
   const loggedInButtons = (
     <>
-      <Link to="/" className={buttonClasses}>Home</Link>
-     <button className={buttonClasses} onClick={()=> handleEventClick()}>Events</button>
-      {/* <a href="/profile" className={buttonClasses}>Profile</a> */}
-      <Link to="/starnight" className={buttonClasses}>Star Night</Link>
+      <a href="/" className={buttonClasses}>Home</a>
+      <a href="/events" className={buttonClasses}>Events</a>
+      <a href="/starnight" className={buttonClasses}>Star Night</a>
       <a href="https://drive.google.com/file/d/12CP4PlhrVhJ4Hi_NVYIhn5B-wWi2q3kr/view?usp=drive_link" className={buttonClasses}>Brochure</a>
-      <Link to="/accomodation" className={buttonClasses}>Accomodation</Link>
-      <button onClick={handleLogout} className={buttonClasses}>Logout</button> 
-      <Link to="/cart" className={buttonClasses}> &#128722;</Link> 
+      <button onClick={handleLogout} className={buttonClasses}>Logout</button>
     </>
   );
 
   const loggedOutButtons = (
     <>
-      <Link to="/" className={buttonClasses}>Home</Link>
-      <button className={buttonClasses}onClick={()=> handleEventClick()}>Events</button>
-      <Link to="/starnight" className={buttonClasses}>Star Night</Link>
+      <a href="/" className={buttonClasses}>Home</a>
+      <a href="/events" className={buttonClasses}>Events</a>
+      <a href="/starnight" className={buttonClasses}>Star Night</a>
       <a href="https://drive.google.com/file/d/12CP4PlhrVhJ4Hi_NVYIhn5B-wWi2q3kr/view?usp=drive_link" className={buttonClasses}>Brochure</a>
-      <Link to="/accomodation" className={buttonClasses}>Accomodation</Link>
-      <Link to="/login" className={buttonClasses}>Login</Link> 
-      {/* <Link to="/cart" className={buttonClasses}> &#128722;</Link> */}
+      <a href="/login" className={buttonClasses}>Login</a>
     </>
   );
-  
+
   return (
-    <nav className='bg-[#001f3f] text-white fixed top-0 left-0 w-full z-50 position-fixed'>
+    <nav className='bg-[#001f3f] text-white fixed top-0 left-0 w-full z-30'>
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div className='flex items-center justify-between h-16'>
           <div className='flex flex-row w-full justify-between'>
             <div className='text-xl font-bold font-sans-serif poppins'>
-              <img  className='mt-3 w-32 h-auto autoload' src={img} alt="img1" />
+              <img className='mt-3 w-32 h-auto autoload' src={img} alt="Logo" />
             </div>
             <div className='hidden md:block'>
               <div className='mt-14 flex ml-10 items-baseline space-x-4'>
@@ -92,7 +83,7 @@ const handleLoginCheck = async () => {
         </div>
       </div>
       {isOpen && (
-        <div className='flex flex-col gap-y-2 md:hidden px-4 sm:px-6 pb-2' onClick={() => setIsOpen(!isOpen)}>
+        <div className='flex flex-col gap-y-2 md:hidden px-4 sm:px-6 pb-2'>
           {isLoggedIn ? loggedInButtons : loggedOutButtons}
         </div>
       )}
