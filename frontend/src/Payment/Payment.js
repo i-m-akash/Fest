@@ -19,7 +19,7 @@ const Payment = () => {
         description: "Aiims Rishikesh Fest",
         image: "https://avatars.githubusercontent.com/u/25058652?v=4",
         order_id: order.id,
-        callback_url: 'http://pyrexia-backend.onrender.com/api/paymentverification',
+        callback_url: 'https://pyrexia-backend.onrender.com/api/paymentverification',
         prefill: {
           name: "Gaurav Kumar",
           email: "gaurav.kumar@example.com",
