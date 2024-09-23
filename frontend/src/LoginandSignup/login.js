@@ -26,7 +26,7 @@ const Login = () => {
     };
 
     const loginWithGoogle = () => {
-        window.open(`${BASE_URL}/auth/google/callback`, "_self");
+        window.open(`${BASE_URL}/auth/google/`, "_self");
     };
 
     return (
